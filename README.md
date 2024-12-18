@@ -7,5 +7,6 @@ qm guest exec <vmid>  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/re
 ```
 
 ```
+apt install htop net-tools
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
 ```
