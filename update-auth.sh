@@ -28,10 +28,10 @@ function update_container() {
   if [[ "$os" == "ubuntu" || "$os" == "debian" ]]; then
     echo -e "${BL}[Info]${GN} Checking /root/.ssh/authorized_keys_new in ${BL}$container${CL} (OS: ${GN}$os${CL})"
 
-    if pct exec "$container" -- [ -ne /root/.ssh/authorized_keys_new ]; then
-      pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys_new"
+    if pct exec "$container" -- [ -e /root/.ssh/authorized_keys_new ]; then
+          echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys_new found in container ${BL}$container${CL}.\n"
     else
-      echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys_new found in container ${BL}$container${CL}.\n"
+          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys_new"
     fi
   else
     echo -e "${BL}[Info]${GN} Skipping ${BL}$container${CL} (not Debian/Ubuntu)\n"
