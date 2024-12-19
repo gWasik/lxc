@@ -33,7 +33,7 @@ function update_container() {
     if pct exec "$container" -- [ -e /root/.ssh/authorized_keys ]; then
           echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys found in container ${BL}$container${CL}.\n"
     else
-          echo pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
+          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
     fi
     
     #rsyslog
@@ -42,10 +42,10 @@ function update_container() {
     if pct exec "$container" -- [ -e /etc/rsyslog.d/remote.conf ]; then
           echo -e "${RD}[Error]${CL} /etc/rsyslog.d/remote.conf found in container ${BL}$container${CL}.\n"
     else
-          echo pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
-          echo pct exec "$container"  -- apt-get install rsyslog
-          echo pct exec "$container"  -- systemctl restart rsyslog
-          echo pct exec "$container"  -- logger "message"
+          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
+          pct exec "$container"  -- apt-get install rsyslog -y
+          pct exec "$container"  -- systemctl restart rsyslog
+          pct exec "$container"  -- logger "message"
     fi
 
   else
@@ -59,4 +59,4 @@ for container in $(pct list | awk '{if(NR>1) print $1}'); do
 done
 
 header_info
-echo -e "${GN}The process is complete. The repositories have been switched to community-scripts/ProxmoxVE.${CL}\n"
+echo -e "${GN}The process is complete. The containers have been updated${CL}\n"
