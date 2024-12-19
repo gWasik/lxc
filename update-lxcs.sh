@@ -1,22 +1,29 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2021-2024 tteck
+# Author: tteck (tteckster)
+# License: MIT
+# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+
 function header_info {
   clear
   cat <<"EOF"
- _______           __         __              ___ ___ _______                     __      ______ _______ 
-|   |   |.-----.--|  |.---.-.|  |_.-----.    |   |   |   |   |    .---.-.-----.--|  |    |      |_     _|
-|   |   ||  _  |  _  ||  _  ||   _|  -__|    |   |   |       |    |  _  |     |  _  |    |   ---| |   |  
-|_______||   __|_____||___._||____|_____|     \_____/|__|_|__|    |___._|__|__|_____|    |______| |___|  
-         |__|                                                                                            
+   __  __          __      __          __   _  ________
+  / / / /___  ____/ /___ _/ /____     / /  | |/ / ____/
+ / / / / __ \/ __  / __ `/ __/ _ \   / /   |   / /
+/ /_/ / /_/ / /_/ / /_/ / /_/  __/  / /___/   / /___
+\____/ .___/\__,_/\__,_/\__/\___/  /_____/_/|_\____/
+    /_/
+
 EOF
 }
-
 set -eEuo pipefail
+YW=$(echo "\033[33m")
 BL=$(echo "\033[36m")
 RD=$(echo "\033[01;31m")
+CM='\xE2\x9C\x94\033'
 GN=$(echo "\033[1;92m")
 CL=$(echo "\033[m")
-
 header_info
 echo "Loading..."
 whiptail --backtitle "Proxmox VE Helper Scripts" --title "Proxmox VE LXC Updater" --yesno "This Will Update LXC Containers. Proceed?" 10 58 || exit
@@ -44,37 +51,25 @@ function needs_reboot() {
     return 1
 }
 
-
 function update_container() {
   container=$1
+  header_info
+  name=$(pct exec "$container" hostname)
   os=$(pct config "$container" | awk '/^ostype/ {print $2}')
-
-  if [[ "$os" == "ubuntu" || "$os" == "debian" ]]; then
-    
-    #authorized_keys
-    echo -e "${BL}[Info]${GN} Checking /root/.ssh/authorized_keys in ${BL}$container${CL} (OS: ${GN}$os${CL})"
-
-    if pct exec "$container" -- [ -e /root/.ssh/authorized_keys ]; then
-          echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys found in container ${BL}$container${CL}.\n"
-    else
-          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
-    fi
-    
-    #rsyslog
-    echo -e "${BL}[Info]${GN} Checking /etc/rsyslog.d/remote.conf in ${BL}$container${CL} (OS: ${GN}$os${CL})"
-
-    if pct exec "$container" -- [ -e /etc/rsyslog.d/remote.conf ]; then
-          echo -e "${RD}[Error]${CL} /etc/rsyslog.d/remote.conf found in container ${BL}$container${CL}.\n"
-    else
-          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
-          pct exec "$container"  -- apt-get install rsyslog -y
-          pct exec "$container"  -- systemctl restart rsyslog
-          pct exec "$container"  -- logger "message"
-    fi
-
+  if [[ "$os" == "ubuntu" || "$os" == "debian" || "$os" == "fedora" ]]; then
+    disk_info=$(pct exec "$container" df /boot | awk 'NR==2{gsub("%","",$5); printf "%s %.1fG %.1fG %.1fG", $5, $3/1024/1024, $2/1024/1024, $4/1024/1024 }')
+    read -ra disk_info_array <<<"$disk_info"
+    echo -e "${BL}[Info]${GN} Updating ${BL}$container${CL} : ${GN}$name${CL} - ${YW}Boot Disk: ${disk_info_array[0]}% full [${disk_info_array[1]}/${disk_info_array[2]} used, ${disk_info_array[3]} free]${CL}\n"
   else
-    echo -e "${BL}[Info]${GN} Skipping ${BL}$container${CL} (not Debian/Ubuntu)\n"
+    echo -e "${BL}[Info]${GN} Updating ${BL}$container${CL} : ${GN}$name${CL} - ${YW}[No disk info for ${os}]${CL}\n"
   fi
+  case "$os" in
+  alpine) pct exec "$container" -- ash -c "apk update && apk upgrade" ;;
+  archlinux) pct exec "$container" -- bash -c "pacman -Syyu --noconfirm" ;;
+  fedora | rocky | centos | alma) pct exec "$container" -- bash -c "dnf -y update && dnf -y upgrade" ;;
+  ubuntu | debian | devuan) pct exec "$container" -- bash -c "apt-get update 2>/dev/null | grep 'packages.*upgraded'; apt list --upgradable && apt-get -yq dist-upgrade 2>&1; rm -rf /usr/lib/python3.*/EXTERNALLY-MANAGED" ;;
+  opensuse) pct exec "$container" -- bash -c "zypper ref && zypper --non-interactive dup" ;;
+  esac
 }
 
 containers_needing_reboot=()
@@ -114,6 +109,4 @@ if [ "${#containers_needing_reboot[@]}" -gt 0 ]; then
         echo "$container_name"
     done
 fi
-
-header_info
-echo -e "${GN}The process is complete. The containers have been updated${CL}\n"
+echo ""
