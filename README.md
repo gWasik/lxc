@@ -20,5 +20,5 @@ apt install htop net-tools
 ## for all containers
 
 ```
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-auth.sh)"
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-containers.sh)"
 ```

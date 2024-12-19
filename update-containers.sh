@@ -26,13 +26,28 @@ function update_container() {
   os=$(pct config "$container" | awk '/^ostype/ {print $2}')
 
   if [[ "$os" == "ubuntu" || "$os" == "debian" ]]; then
-    echo -e "${BL}[Info]${GN} Checking /root/.ssh/authorized_keys_new in ${BL}$container${CL} (OS: ${GN}$os${CL})"
+    
+    #authorized_keys
+    echo -e "${BL}[Info]${GN} Checking /root/.ssh/authorized_keys in ${BL}$container${CL} (OS: ${GN}$os${CL})"
 
-    if pct exec "$container" -- [ -e /root/.ssh/authorized_keys_new ]; then
-          echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys_new found in container ${BL}$container${CL}.\n"
+    if pct exec "$container" -- [ -e /root/.ssh/authorized_keys ]; then
+          echo -e "${RD}[Error]${CL} /root/.ssh/authorized_keys found in container ${BL}$container${CL}.\n"
     else
-          pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys_new"
+          echo pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
     fi
+    
+    #rsyslog
+    echo -e "${BL}[Info]${GN} Checking /etc/rsyslog.d/remote.conf in ${BL}$container${CL} (OS: ${GN}$os${CL})"
+
+    if pct exec "$container" -- [ -e /etc/rsyslog.d/remote.conf ]; then
+          echo -e "${RD}[Error]${CL} /etc/rsyslog.d/remote.conf found in container ${BL}$container${CL}.\n"
+    else
+          echo pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
+          echo pct exec "$container"  -- apt-get install rsyslog
+          echo pct exec "$container"  -- systemctl restart rsyslog
+          echo pct exec "$container"  -- logger "message"
+    fi
+
   else
     echo -e "${BL}[Info]${GN} Skipping ${BL}$container${CL} (not Debian/Ubuntu)\n"
   fi
