@@ -32,7 +32,7 @@ logger "message"
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/usr/local/bin/apt-proxy-detect.sh" "-O" "/usr/local/bin/apt-proxy-detect.sh"
 
 #my motd
-"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/update-motd.d/99-mymotd-generator"
+"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
 chmod a+x /etc/update-motd.d/99-mymotd-generator
 mv /etc/motd /etc/motd.bak
 
