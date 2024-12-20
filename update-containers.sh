@@ -78,7 +78,10 @@ function update_container() {
     pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/apt/apt.conf.d/00aptproxy" "-O" "/etc/apt/apt.conf.d/00aptproxy"
     pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/usr/local/bin/apt-proxy-detect.sh" "-O" "/usr/local/bin/apt-proxy-detect.sh"
     pct exec "$container"  -- chmod a+x /usr/local/bin/apt-proxy-detect.sh
+    
     #my motd
+    echo -e "${BL}[Info]${GN} Checking /etc/update-motd.d/99-mymotd-generator in ${BL}$container${CL} (OS: ${GN}$os${CL})"
+
     pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
     pct exec "$container"  -- chmod a+x /etc/update-motd.d/99-mymotd-generator
     pct exec "$container"  -- mv /etc/motd /etc/motd.bak
