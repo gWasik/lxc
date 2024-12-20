@@ -69,8 +69,8 @@ function update_container() {
           pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
           pct exec "$container"  -- apt-get install rsyslog -y
           pct exec "$container"  -- systemctl restart rsyslog
-          pct exec "$container"  -- logger "message"
     fi
+    pct exec "$container"  -- logger "$container updated"
 
     #add cacher dep
     echo -e "${BL}[Info]${GN} Checking /etc/apt/apt.conf.d/00aptproxy in ${BL}$container${CL} (OS: ${GN}$os${CL})"
@@ -82,9 +82,13 @@ function update_container() {
     #my motd
     echo -e "${BL}[Info]${GN} Checking /etc/update-motd.d/99-mymotd-generator in ${BL}$container${CL} (OS: ${GN}$os${CL})"
 
-    pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
-    pct exec "$container"  -- chmod a+x /etc/update-motd.d/99-mymotd-generator
-    pct exec "$container"  -- mv /etc/motd /etc/motd.bak
+    if pct exec "$container" -- [ -e /etc/motd ]; then
+        pct exec "$container"  -- "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
+        pct exec "$container"  -- chmod a+x /etc/update-motd.d/99-mymotd-generator
+        pct exec "$container"  -- mv /etc/motd /etc/motd.bak
+    else
+          echo -e "${RD}[Error]${CL} /etc/motd not found in container ${BL}$container${CL}.\n"
+    fi
 
   else
     echo -e "${BL}[Info]${GN} Skipping ${BL}$container${CL} (not Debian/Ubuntu)\n"
