@@ -8,7 +8,7 @@ https://community-scripts.github.io/ProxmoxVE/scripts
 
 ## ASCII ART
 
-https://patorjk.com/software/taag/#p=display&f=Chunky&t=Update%20VM%20and%20CT
+https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 
 ## manual
 
@@ -30,6 +30,7 @@ logger "message"
 #add cacher dep
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/apt/apt.conf.d/00aptproxy" "-O" "/etc/apt/apt.conf.d/00aptproxy"
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/usr/local/bin/apt-proxy-detect.sh" "-O" "/usr/local/bin/apt-proxy-detect.sh"
+chmod a+x /usr/local/bin/apt-proxy-detect.sh
 
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
