@@ -74,8 +74,8 @@ elif [ -f "/etc/debian_version" ]; then
 fi
 
 color;
-echo $tcDkG " .____     ____  ____________  ${TAB}${HOSTNAME}${YW} Hostname: ${TAB}${TAB}${TAB}${TAB}${TAB}${BOLD}$(hostname -f)${CL}"
-echo $tcDkG " |    |    \   \/  /\_   ___ \ ${TAB}${INFO}${GN} IP Address: ${TAB}${TAB}${TAB}${TAB}${BOLD}${IP}${CL}"
+echo $tcDkG " .____     ____  ____________  ${TAB}${HOSTNAME}${YW} Hostname: ${TAB}${TAB}${TAB}${TAB}${TAB}$(hostname -f)${CL}"
+echo $tcDkG " |    |    \   \/  /\_   ___ \ ${TAB}${INFO}${GN} IP Address: ${TAB}${TAB}${TAB}${TAB}${IP}${CL}"
 echo $tcDkG " |    |     \     / /    \  \/ ${TAB}${DEFAULT}${BL} ${OS_NAME}: ${TAB}${OS_VERSION}${CL}"
 echo $tcDkG " |    |___  /     \ \     \____${TAB}${DEFAULT}${BL} Memory used:  ${TAB}${TAB}${TAB}$MEMORY_USED %${CL}"
 echo $tcDkG " |_______ \/___/\  \ \______  /${TAB}${DEFAULT}${BL} Swap used:  ${TAB}${TAB}${TAB}${TAB}$SWAP_USED %${CL}"
