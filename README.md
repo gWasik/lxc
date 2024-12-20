@@ -1,4 +1,4 @@
-# FitHUB
+# GitHUB
 
 https://github.com/gWasik/lxc
 
