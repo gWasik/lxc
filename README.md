@@ -23,6 +23,9 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-container.sh)"
 ```
 ```
+hostnamectl set-hostname *node*.wasik.ru
+mcedit /etc/hosts
+
 sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 systemctl restart sshd
