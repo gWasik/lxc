@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # add packets
+apt update
 apt install -y htop net-tools sudo
 
 #add ssh key
