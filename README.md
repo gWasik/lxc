@@ -12,16 +12,21 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 
 ## manual
 
-### exec on my server
+### exec on my OpenWRT
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-server.sh)"
 ```
 
-### exec on my lxc
+### exec on my VDS/PVE
+```
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-server.sh)"
+```
 
+### exec on my LXC
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-container.sh)"
 ```
+
 ```
 hostnamectl set-hostname *node*.wasik.ru
 mcedit /etc/hosts
