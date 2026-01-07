@@ -75,12 +75,12 @@ fi
 
 color;
 
-l1=" ____   ____________    _________  "
-l2=" \   \ /   /\______ \  /   _____/  "
-l3="  \   Y   /  |    |  \ \_____  \   "
-l4="   \     /   |    `   \/        \  "
-l5="    \___/   /_______  /_______  /  "
-l6="     v-server       \/ aWasik \/   "
+l1=' ____   ____________    _________  '
+l2=' \   \ /   /\______ \  /   _____/  '
+l3='  \   Y   /  |    |  \ \_____  \   '
+l4='   \     /   |    `   \/        \  '
+l5='    \___/   /_______  /_______  /  '
+l6='     v-server       \/ aWasik \/   '
 
 echo $tcDkG "${l1}${TAB}${HOSTNAME}${YW} Hostname: ${TAB}${TAB}${TAB}${TAB}${TAB}$(hostname -f)${CL}"
 echo $tcDkG "${l2}${TAB}${INFO}${GN} IP Address: ${TAB}${TAB}${TAB}${TAB}${IP}${CL}"

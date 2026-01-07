@@ -12,10 +12,13 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 
 ## manual
 
-add to my lxc
+### exec on my server
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-server.sh)"
 ```
+
+### exec on my lxc
+
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-container.sh)"
 ```
