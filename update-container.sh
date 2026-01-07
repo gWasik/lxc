@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add packets
-apt install -y htop net-tools
+apt install -y htop net-tools sudo
 
 #add ssh key
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
