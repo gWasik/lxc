@@ -1,49 +1,55 @@
 #!/bin/bash
 
-# Настройка цветов
-color() {
-    tcDkG="\033[01;30m"
-    tcLtBL="\033[01;34m"
-    YW="\033[33m"
-    GN="\033[1;92m"
-    BL="\033[36m"
-    CL="\033[m"
+# --- Настройка стилей (Возврат к старым цветам) ---
+setup_colors() {
+    tcDkG="\033[01;30m"   # Серый (лого)
+    tcW="\033[01;37m"     # Белый
+    YW="\033[33m"         # Желтый
+    GN="\033[1;92m"       # Зеленый
+    BL="\033[36m"         # Голубой
+    RD="\033[01;31m"      # Красный
+    CL="\033[m"           # Сброс
     tcRESET="\033[0m"
     TAB="  "
     
-    # Иконки
-    INFO="${TAB}💡${TAB}${CL}"
-    DEFAULT="${TAB}⚙️${TAB}${CL}"
-    HOSTNAME_ICON="${TAB}🏠${TAB}${CL}"
+    ICON_HOST="${TAB}🏠${TAB}${CL}"
+    ICON_IP="${TAB}💡${TAB}${CL}"
+    ICON_DEF="${TAB}⚙️${TAB}${CL}"
+    ICON_DISK="${TAB}💾${TAB}${CL}"
+    ICON_LOAD="${TAB}📈${TAB}${CL}"
 }
 
-# Сбор системных данных
+# --- Сбор данных ---
 VIRT=$(systemd-detect-virt)
-uptime_seconds=$(cat /proc/uptime | cut -f1 -d.)
-upDays=$((uptime_seconds/60/60/24))
-upHours=$((uptime_seconds/60/60%24))
-upMins=$((uptime_seconds/60%60))
-
-MEMORY_USED=$(free | grep Mem | awk '{printf "%.1f", $3/$2 * 100.0}')
-SWAP_USED=$(free | grep Swap | awk '{if ($2>0) printf "%.1f", $3/$2 * 100.0; else print "0"}')
 IP=$(hostname -I | awk '{print $1}')
+HOSTNAME_F=$(hostname -f)
+HOSTNAME_C=$(hostname)
+
+uptime_s=$(cat /proc/uptime | cut -f1 -d.)
+upD=$((uptime_s/60/60/24))
+upH=$((uptime_s/60/60%24))
+upM=$((uptime_s/60%60))
+
+MEM_USED=$(free | grep Mem | awk '{printf "%.1f", $3/$2 * 100.0}')
+SWAP_USED=$(free | grep Swap | awk '{if ($2>0) printf "%.1f", $3/$2 * 100.0; else print "0"}')
+DISK_PERC=$(df -h / | awk 'NR==2 {print $5}')
+DISK_FREE=$(df -h / | awk 'NR==2 {print $4}')
+L_AVG=$(cut -d' ' -f1-3 /proc/loadavg)
 
 if [ -f "/etc/os-release" ]; then
     OS_NAME=$(grep ^NAME /etc/os-release | cut -d= -f2 | tr -d '"')
     OS_VERSION=$(grep ^VERSION_ID /etc/os-release | cut -d= -f2 | tr -d '"')
 fi
 
-color;
-
-# Выбор логотипа в зависимости от среды
+# --- Логотипы ---
 if [ "$VIRT" = "lxc" ]; then
     raw_logo=$(cat << 'EOF'
-  .____     ____  ____________  
-  |    |    \   \/  /\_   ___ \ 
-  |    |     \      / /    \  \/ 
-  |    |___  /     \ \      \____
-  |_______ \/___/\  \ \______  /
- Container\/      \_/ aWasik \/ 
+ .____     ____  ____________  
+ |    |    \   \/  /\_   ___ \ 
+ |    |     \      / /    \  \/ 
+ |    |___  /     \ \      \____
+ |_______ \/___/\  \ \______  /
+Container\/      \_/ aWasik \/ 
 EOF
 )
 elif [ "$VIRT" = "kvm" ]; then
@@ -63,30 +69,43 @@ ______________    _______________
  |     ___/\   Y   /  |    __)_ 
  |    |     \     /   |        \
  |____|      \___/   /_______  /
-                      aWasik \/ 
+                     aWasik \/ 
 EOF
 )
 fi
 
-# Находим длину самой длинной строки в логотипе
+# --- Логика выравнивания ---
+setup_colors
+mapfile -t logo_lines <<< "$raw_logo"
 max_len=0
-while IFS= read -r line; do
+for line in "${logo_lines[@]}"; do
     [ ${#line} -gt $max_len ] && max_len=${#line}
-done <<< "$raw_logo"
+done
 
-# Читаем строки и дополняем их пробелами до max_len
-i=1
-while IFS= read -r line || [ -n "$line" ]; do
-    # printf %-${max_len}s гарантирует одинаковую ширину
-    declare "l$i"="$(printf "%-${max_len}s" "$line")"
-    i=$((i+1))
-done <<< "$raw_logo"
+logo_width=$((max_len + 2))
+label_w=16
 
-# Вывод приветствия
-echo -e "${tcDkG}${l1}${TAB}${HOSTNAME_ICON}${YW} Hostname: ${TAB}${TAB}${TAB}$(hostname -f)${CL}"
-echo -e "${tcDkG}${l2}${TAB}${INFO}${GN} IP Address: ${TAB}${TAB}${IP}${CL}"
-echo -e "${tcDkG}${l3}${TAB}${DEFAULT}${BL} ${OS_NAME}: ${TAB}${TAB}${OS_VERSION}${CL}"
-echo -e "${tcDkG}${l4}${TAB}${DEFAULT}${BL} Memory used: ${TAB}${TAB}${MEMORY_USED} %${CL}"
-echo -e "${tcDkG}${l5}${TAB}${DEFAULT}${BL} Swap used: ${TAB}${TAB}${TAB}${SWAP_USED} %${CL}"
-echo -e "${tcDkG}${l6}${TAB}${DEFAULT}${BL} System uptime: ${TAB}${upDays}d ${upHours}h ${upMins}m${CL}"
+print_line() {
+    local idx=$1
+    local icon=$2
+    local l_color=$3
+    local l_text=$4
+    local val=$5
+    
+    local img_part="${logo_lines[$idx]}"
+    
+    # Теперь и текст, и значение используют l_color, как на твоем скрине
+    printf "${tcDkG}%-${logo_width}s${icon} ${l_color}%-${label_w}s %s${CL}\n" \
+        "$img_part" "$l_text" "$val"
+}
+
+# --- Финальный вывод ---
+echo -e ""
+print_line 0 "$ICON_HOST" "$GN" "Hostname:"      "$HOSTNAME_F ($HOSTNAME_C)"
+print_line 1 "$ICON_IP"   "$GN" "IP Address:"    "$IP"
+print_line 2 "$ICON_DEF"  "$BL" "${OS_NAME}:"    "$OS_VERSION"
+print_line 3 "$ICON_DEF"  "$BL" "Load Average:"  "$L_AVG"
+print_line 4 "$ICON_DEF"  "$BL" "Disk Usage:"    "$DISK_PERC ($DISK_FREE free)"
+print_line 5 "$ICON_DEF"  "$BL" "Memory used:"   "${MEM_USED}% (Swap: ${SWAP_USED}%)"
+print_line 6 "$ICON_DEF"  "$BL" "System uptime:" "${upD}d ${upH}h ${upM}m"
 echo -e "${tcRESET}"
