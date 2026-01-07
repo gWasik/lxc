@@ -6,7 +6,7 @@ apt install -y htop btop net-tools sudo mc ufw
 ufw allow ssh
 
 #my motd
-"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/98-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
+"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
 chmod a+x /etc/update-motd.d/99-mymotd-generator
 mv /etc/motd /etc/motd.bak
 
