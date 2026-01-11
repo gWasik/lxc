@@ -6,8 +6,8 @@ opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpd
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/welcome.sh" "-O" "/etc/welcome.sh"
 chmod a+x /etc/welcome.sh
-echo "" >> /etc/profile && echo "/etc/welcome.sh" >> /etc/profile
-mv /etc/banner /etc/banner.awasiksave
+grep -qxF "/etc/welcome.sh" /etc/profile || (echo "" >> /etc/profile && echo "/etc/welcome.sh" >> /etc/profile)
+[ -f /etc/banner ] && mv /etc/banner /etc/banner.awasiksave
 
 #add ssh key
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
