@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add packets
-opkg update && opkg install -y htop btop net-tools sudo mc iperf3 curl wget sudo
+opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump
 
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/welcome.sh" "-O" "/etc/welcome.sh"
