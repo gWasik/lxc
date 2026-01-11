@@ -2,7 +2,7 @@
 
 # add packets
 apt update
-apt install -y htop net-tools sudo
+apt install -y htop net-tools sudo iftop iperf3
 
 #add ssh key
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"

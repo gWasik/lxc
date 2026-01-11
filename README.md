@@ -15,6 +15,8 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 ### exec on my OpenWRT
 ```
 ash -c "$(curl -fsSL https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"
+
+[ -f ~/.bash_history ] && sed -i -e '/_termius_/d' -e '/builtin printf.*?1049/d' ~/.bash_history; [ -f /etc/openwrt_release ] && [ -z "$(ls -A /var/opkg-lists 2>/dev/null)" ] && ash -c "$(wget -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"; mc
 ```
 
 ### exec on my VDS/PVE

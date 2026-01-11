@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add packets
-opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump
+opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump iftop
 
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/welcome.sh" "-O" "/etc/welcome.sh"
@@ -15,3 +15,4 @@ grep -qxF "/etc/welcome.sh" /etc/profile || (echo "" >> /etc/profile && echo "/e
 #sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 #sudo sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 #systemctl restart sshd
+
