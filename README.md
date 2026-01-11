@@ -14,7 +14,7 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 
 ### exec on my OpenWRT
 ```
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-server.sh)"
+ash -c "$(curl -fsSL https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"
 ```
 
 ### exec on my VDS/PVE
