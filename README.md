@@ -40,6 +40,8 @@ systemctl restart sshd
 
 ## for all containers
 
+# timezone manual correction debian
+
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-containers.sh)"
 ```
