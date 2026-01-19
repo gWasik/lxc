@@ -15,3 +15,6 @@ mv /etc/motd /etc/motd.bak
 sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 systemctl restart sshd
+
+#установка временной зоны MSK
+sudo timedatectl set-timezone Europe/Moscow

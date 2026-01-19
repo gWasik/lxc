@@ -26,3 +26,6 @@ chmod a+x /usr/local/bin/apt-proxy-detect.sh
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/99-mymotd-generator" "-O" "/etc/update-motd.d/99-mymotd-generator"
 chmod a+x /etc/update-motd.d/99-mymotd-generator
 mv /etc/motd /etc/motd.bak
+
+#установка временной зоны MSK
+sudo timedatectl set-timezone Europe/Moscow

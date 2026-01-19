@@ -89,6 +89,8 @@ function update_container() {
     else
           echo -e "${RD}[Error]${CL} /etc/motd not found in container ${BL}$container${CL}.\n"
     fi
+    #установка временной зоны MSK
+    sudo timedatectl set-timezone Europe/Moscow
 
   else
     echo -e "${BL}[Info]${GN} Skipping ${BL}$container${CL} (not Debian/Ubuntu)\n"
