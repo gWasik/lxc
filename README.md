@@ -43,3 +43,17 @@ systemctl restart sshd
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-containers.sh)"
 ```
+
+```
+sudo timedatectl set-timezone Europe/Moscow
+
+cat docker-compose.yml
+...
+    volumes:
+...
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+...
+
+docker compose down && docker compose up -d && docker compose logs -f -t
+```
