@@ -2,6 +2,8 @@
 
 https://github.com/gWasik/lxc
 
+https://github.com/gWasik/notes
+
 # lxc
 
 https://community-scripts.github.io/ProxmoxVE/scripts
@@ -56,6 +58,11 @@ cat docker-compose.yml
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 ...
-
 docker compose down && docker compose up -d && docker compose logs -f -t
+```
+
+# proxmox scripts
+
+```
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/openwrt24.10-vm.sh)"
 ```
