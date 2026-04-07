@@ -17,7 +17,7 @@ function header_info {
  / / / / __ \/ _ \/ __ \ | /| / / ___/ __/
 / /_/ / /_/ /  __/ / / / |/ |/ / /  / /_
 \____/ .___/\___/_/ /_/|__/|__/_/   \__/
-    /_/ W I R E L E S S   F R E E D O M
+    /_/ W I R E L E S S   F R E E D O M (a)Wasik
 
 EOF
 }
