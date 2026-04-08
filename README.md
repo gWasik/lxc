@@ -65,4 +65,5 @@ docker compose down && docker compose up -d && docker compose logs -f -t
 
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/openwrt24.10-vm.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/expand-root.sh)"
 ```
