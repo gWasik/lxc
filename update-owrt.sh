@@ -9,6 +9,7 @@ chmod a+x /etc/welcome.sh
 grep -qxF "/etc/welcome.sh" /etc/profile || (echo "" >> /etc/profile && echo "/etc/welcome.sh" >> /etc/profile)
 [ -f /etc/banner ] && mv /etc/banner /etc/banner.awasiksave
 
+mkdir -p ~/.ssh
 #add ssh key
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" "-O" "/root/.ssh/authorized_keys"
 #
