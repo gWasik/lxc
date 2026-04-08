@@ -70,10 +70,10 @@ wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/re
 
 wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh | ash
 
-opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump iftop adguardhome luci-app-chrony luci-app-dockerman luci-app-filemanager luci-app-nut luci-app-p910nd luci-app-sshtunnel luci-lib-docker luci-proto-wireguard
+opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump iftop adguardhome luci-app-chrony luci-app-dockerman luci-app-filemanager luci-app-nut luci-app-p910nd luci-app-sshtunnel luci-lib-docker luci-proto-wireguard qemu-ga
 
 opkg update && opkg list-upgradable | awk '{print $1}' | xargs opkg upgrade
 
-rm -f passwallx.sh && wget https://raw.githubusercontent.com/gWasik/Passwall/main/passwallx.sh && chmod 777 passwallx.sh && sh passwallx.sh
+cd /tmp && rm -f passwall2.sh && wget -O passwall2.sh https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/passwall2.sh && sh passwall2.sh
 
 ```
