@@ -61,7 +61,7 @@ cat docker-compose.yml
 docker compose down && docker compose up -d && docker compose logs -f -t
 ```
 
-# proxmox scripts
+# openwrt scripts
 
 ```
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/openwrt24.10-vm.sh)"
@@ -70,6 +70,10 @@ wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/re
 
 wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh | ash
 
-wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/Passwall/main/passwallx.sh | ash
+opkg update && opkg install htop sudo mc iperf3 curl wget sudo iputils-ping tcpdump iftop adguardhome luci-app-chrony luci-app-dockerman luci-app-filemanager luci-app-nut luci-app-p910nd luci-app-sshtunnel luci-lib-docker luci-proto-wireguard
+
+opkg update && opkg list-upgradable | awk '{print $1}' | xargs opkg upgrade
+
+rm -f passwallx.sh && wget https://raw.githubusercontent.com/gWasik/Passwall/main/passwallx.sh && chmod 777 passwallx.sh && sh passwallx.sh
 
 ```
