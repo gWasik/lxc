@@ -9,7 +9,7 @@ BACKUP_SUFFIX=$(date +%Y%m%d)
 MIN_SPACE_KB=20480
 
 FEED_BASE_URL="https://master.dl.sourceforge.net/project/openwrt-passwall-build"
-FEED_KEY_URL="${FEED_BASE_URL}/passwall.pub"
+FEED_KEY_URL="${FEED_BASE_URL}/ipk.pub"
 
 C_RESET='\033[0m'
 C_BOLD='\033[1m'

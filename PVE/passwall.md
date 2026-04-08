@@ -7,7 +7,7 @@
 Запустите эту команду на вашем устройстве с OpenWrt:
 
 ```sh
-cd /tmp && rm -f passwall2.sh && wget -O passwall2.sh https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/passwall2.sh && sh passwall2.sh
+cd /tmp && rm -f passwall2.sh && wget -O passwall2.sh https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/passwall2.sh && sh passwall2.sh
 ```
 
 ## Возможности
