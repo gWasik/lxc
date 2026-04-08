@@ -68,6 +68,6 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 
 wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh | ash
 
-wget --no-check-certificate -qO- https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/expand-root.sh | ash
+wget --no-check-certificate -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/expand-root.sh | ash
 
 ```
