@@ -82,7 +82,7 @@ cat docker-compose.yml
 docker compose down && docker compose up -d && docker compose logs -f -t
 ```
 
-# WARP native
+## WARP native
 
 ```
 https://github.com/distillium/warp-native/tree/main https://wiki.egam.es/ru/configuration/warp-native/
@@ -95,8 +95,24 @@ bash <(curl -Ls https://raw.githubusercontent.com/eGamesAPI/remnawave-reverse-pr
 remnawave_reverse
 ```
 
-## логи
+### логи
 
 ```
 curl -L -o /root/remnanode_analyzer.sh https://raw.githubusercontent.com/OMchik33/Remnawave-scripts/refs/heads/main/remnanode_analyzer.sh && chmod +x /root/remnanode_analyzer.sh && bash /root/remnanode_analyzer.sh
+```
+
+## проверки VPS
+
+```
+Проверка IP сервера на блокировки зарубежными сервисами: 
+bash <(curl -Ls IP.Check.Place) -l en
+
+Параметры сервера и проверка скорости к российским провайдерам:
+wget -qO- speedtest.artydev.ru | bash
+
+Параметры сервера и проверка скорости к зарубежным провайдерам:
+wget -qO- bench.sh | bash
+
+Проверка блокировки аудио в Instagram:
+bash <(curl -L -s https://bench.openode.xyz/checker_inst.sh)
 ```
