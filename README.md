@@ -48,19 +48,6 @@ systemctl restart sshd
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-containers.sh)"
 ```
 
-```
-sudo timedatectl set-timezone Europe/Moscow
-
-cat docker-compose.yml
-...
-    volumes:
-...
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-...
-docker compose down && docker compose up -d && docker compose logs -f -t
-```
-
 # openwrt scripts
 
 ```
@@ -76,4 +63,40 @@ opkg update && opkg list-upgradable | awk '{print $1}' | xargs opkg upgrade
 
 cd /tmp && rm -f passwall2.sh && wget -O passwall2.sh https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/PVE/passwall2.sh && sh passwall2.sh
 
+```
+
+# NODE
+
+## полезное
+
+```
+sudo timedatectl set-timezone Europe/Moscow
+
+cat docker-compose.yml
+...
+    volumes:
+...
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+...
+docker compose down && docker compose up -d && docker compose logs -f -t
+```
+
+# WARP native
+
+```
+https://github.com/distillium/warp-native/tree/main https://wiki.egam.es/ru/configuration/warp-native/
+```
+
+## remnawave
+
+```
+bash <(curl -Ls https://raw.githubusercontent.com/eGamesAPI/remnawave-reverse-proxy/refs/heads/main/install_remnawave.sh)
+remnawave_reverse
+```
+
+## логи
+
+```
+curl -L -o /root/remnanode_analyzer.sh https://raw.githubusercontent.com/OMchik33/Remnawave-scripts/refs/heads/main/remnanode_analyzer.sh && chmod +x /root/remnanode_analyzer.sh && bash /root/remnanode_analyzer.sh
 ```
