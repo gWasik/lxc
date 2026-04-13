@@ -85,7 +85,11 @@ docker compose down && docker compose up -d && docker compose logs -f -t
 ## WARP native
 
 ```
-https://github.com/distillium/warp-native/tree/main https://wiki.egam.es/ru/configuration/warp-native/
+https://github.com/distillium/warp-native/tree/main
+
+https://wiki.egam.es/ru/configuration/warp-native/
+
+bash <(curl -fsSL https://raw.githubusercontent.com/distillium/warp-native/main/install.sh)
 ```
 
 ## remnawave
