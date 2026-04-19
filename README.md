@@ -112,6 +112,8 @@ https://github.com/vernette/ipregion/blob/master/README.md
 ```
 bash <(wget -qO- https://ipregion.vrnt.xyz)
 
+bash <(wget -qO- https://ipregion.vrnt.xyz) --interface warp
+
 Проверка IP сервера на блокировки зарубежными сервисами: 
 bash <(curl -Ls IP.Check.Place) -l en
 
