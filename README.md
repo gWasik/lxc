@@ -107,8 +107,10 @@ curl -L -o /root/remnanode_analyzer.sh https://raw.githubusercontent.com/OMchik3
 
 ## проверки VPS
 
-```
 https://github.com/vernette/ipregion/blob/master/README.md
+
+```
+bash <(wget -qO- https://ipregion.vrnt.xyz)
 
 Проверка IP сервера на блокировки зарубежными сервисами: 
 bash <(curl -Ls IP.Check.Place) -l en
