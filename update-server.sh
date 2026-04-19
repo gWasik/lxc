@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add packets
-apt update && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr
+apt update && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr jq
 ufw allow ssh
 
 #my motd
