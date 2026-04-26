@@ -32,6 +32,22 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 ```
 
 ```
+
+USER_NAME="awasik"
+USER_PASS="awasik"
+
+if id "$USER_NAME" &>/dev/null; then
+    echo "Пользователь $USER_NAME уже существует"
+else
+    # Создаем пользователя
+    useradd -m -s /bin/bash "$USER_NAME"
+    # Назначаем пароль
+    echo "$USER_NAME:$USER_PASS" | chpasswd
+    # Даем права sudo
+    usermod -aG sudo "$USER_NAME"
+    echo "Пользователь $USER_NAME успешно создан"
+fi
+
 hostnamectl set-hostname *node*.wasik.ru
 mcedit /etc/hosts
 
@@ -111,8 +127,8 @@ https://github.com/vernette/ipregion/blob/master/README.md
 
 ```
 bash <(wget -qO- https://ipregion.vrnt.xyz)
-
 bash <(wget -qO- https://ipregion.vrnt.xyz) --interface warp
+bash <(wget -qO- https://ipregion.vrnt.xyz) --proxy 127.0.0.1:1080 # Use SOCKS5 proxy
 
 Проверка IP сервера на блокировки зарубежными сервисами: 
 bash <(curl -Ls IP.Check.Place) -l en
