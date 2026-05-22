@@ -14,6 +14,7 @@ systemctl restart sshd
 #add rsyslog 
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
 apt-get install rsyslog -y
+rsyslogd -N1
 systemctl restart rsyslog
 logger "message"
 
