@@ -2,6 +2,7 @@
 
 # add packets
 apt update
+apt upgrade
 apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop
 
 #add rsyslog 
