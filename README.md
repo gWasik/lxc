@@ -31,8 +31,12 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-container.sh)"
 ```
 
+### syslog
+```
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/set-syslog.sh)"
 ```
 
+```
 USER_NAME="awasik"
 USER_PASS="awasik"
 
