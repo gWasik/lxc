@@ -4,7 +4,7 @@
 apt update
 apt upgrade
 apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop
-apt autoremove
+apt autoremove -y
 
 #add rsyslog 
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"
