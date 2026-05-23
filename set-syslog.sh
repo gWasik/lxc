@@ -37,4 +37,7 @@ sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthen
 sudo systemctl restart ssh
 
 #resolvconf
-"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/docker/daemon.json" "-O" "/etc/docker/daemon.json"
+sudo "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/resolvconf/resolv.conf.d/head" "-O" "/etc/resolvconf/resolv.conf.d/head"
+sudo "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/resolvconf/resolv.conf.d/base" "-O" "/etc/resolvconf/resolv.conf.d/base"
+sudo resolvconf -u
+nslookup ya.ru
