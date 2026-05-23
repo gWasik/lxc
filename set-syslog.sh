@@ -13,5 +13,8 @@ rsyslogd -N1
 systemctl restart rsyslog
 logger "message"
 
+"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/docker/daemon.json" "-O" "/etc/docker/daemon.json"
+systemctl restart docker
+
 #установка временной зоны MSK
 sudo timedatectl set-timezone Europe/Moscow
