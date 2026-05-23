@@ -28,7 +28,7 @@ sudo timedatectl set-timezone Europe/Moscow
 ufw allow 11111/tcp
 
 #ssh
-sudo sed -i 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
-sudo sed -i 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-sudo sed -i 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 systemctl restart sshd
