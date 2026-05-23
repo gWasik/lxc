@@ -31,4 +31,4 @@ ufw allow 11111/tcp
 sudo sed -i -E 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
 sudo sed -i -E 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
-systemctl restart sshd
+sudo systemctl restart ssh
