@@ -1,0 +1,4 @@
+#base
+nameserver 1.1.1.1
+nameserver 77.88.8.8
+search lan

@@ -55,9 +55,32 @@ fi
 hostnamectl set-hostname *node*.wasik.ru
 mcedit /etc/hosts
 
-sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-sudo sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
-systemctl restart sshd
+sudo sed -i -E 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+
+sudo apt update && sudo apt install wireguard wireguard-tools resolvconf -y
+sudo mcedit /etc/wireguard/wg0.conf
+sudo systemctl start wg-quick@wg0
+sudo systemctl status wg-quick@wg0
+sudo systemctl enable wg-quick@wg0
+
+```
+
+## полезное
+
+```
+sudo timedatectl set-timezone Europe/Moscow
+
+cat docker-compose.yml
+...
+    volumes:
+...
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+...
+docker compose down && docker compose up -d && docker compose logs -f -t
 ```
 
 ## for all containers
@@ -86,21 +109,6 @@ cd /tmp && rm -f passwall2.sh && wget -O passwall2.sh https://raw.githubusercont
 ```
 
 # NODE
-
-## полезное
-
-```
-sudo timedatectl set-timezone Europe/Moscow
-
-cat docker-compose.yml
-...
-    volumes:
-...
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-...
-docker compose down && docker compose up -d && docker compose logs -f -t
-```
 
 ## WARP native
 
