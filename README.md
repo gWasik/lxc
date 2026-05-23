@@ -36,7 +36,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/set-syslog.sh)"
 ```
 
-```
+```docker ps
 USER_NAME="awasik"
 USER_PASS="awasik"
 
@@ -65,7 +65,9 @@ sudo mcedit /etc/wireguard/wg0.conf
 sudo systemctl start wg-quick@wg0
 sudo systemctl status wg-quick@wg0
 sudo systemctl enable wg-quick@wg0
+sudo ufw allow in on wg0 to any
 
+resolvconf -u
 ```
 
 ## полезное

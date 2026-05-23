@@ -37,7 +37,12 @@ sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthen
 sudo systemctl restart ssh
 
 #resolvconf
+[ -d "/etc/resolvconf" ] || mkdir -p "/etc/resolvconf"
+[ -d "/etc/resolvconf/resolv.conf.d" ] || mkdir -p "/etc/resolvconf/resolv.conf.d"
 sudo "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/resolvconf/resolv.conf.d/head" "-O" "/etc/resolvconf/resolv.conf.d/head"
 sudo "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/resolvconf/resolv.conf.d/base" "-O" "/etc/resolvconf/resolv.conf.d/base"
+[ -d "/etc/systemd" ] || mkdir -p "/etc/systemd"
+sudo "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/systemd/resolved.conf" "-O" "/etc/systemd/resolved.conf"
+
 sudo resolvconf -u
 nslookup ya.ru
