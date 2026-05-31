@@ -1,7 +1,7 @@
 {
   "log-driver": "syslog",
   "log-opts": {
-    "syslog-address": "udp://loki.lan:514",
+    "syslog-address": "udp://192.168.254.22:514",
     "syslog-format": "rfc5424",
     "tag": "{{.Name}}",
     "cache-disabled": "false"
