@@ -37,20 +37,8 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/gWasik/lxc/refs/heads/m
 ```
 
 ```docker ps
-USER_NAME="awasik"
-USER_PASS="awasik"
 
-if id "$USER_NAME" &>/dev/null; then
-    echo "Пользователь $USER_NAME уже существует"
-else
-    # Создаем пользователя
-    useradd -m -s /bin/bash "$USER_NAME"
-    # Назначаем пароль
-    echo "$USER_NAME:$USER_PASS" | chpasswd
-    # Даем права sudo
-    usermod -aG sudo "$USER_NAME"
-    echo "Пользователь $USER_NAME успешно создан"
-fi
+sudo bash -c 'USER_NAME="awasik"; USER_PASS="awasik"; if id "$USER_NAME" &>/dev/null; then echo "Пользователь $USER_NAME уже существует"; passwd "$USER_NAME"; else useradd -m -s /bin/bash "$USER_NAME"; echo "$USER_NAME:$USER_PASS" | chpasswd; usermod -aG sudo "$USER_NAME"; echo "Пользователь $USER_NAME успешно создан"; passwd "$USER_NAME"; fi'
 
 hostnamectl set-hostname *node*.wasik.ru
 mcedit /etc/hosts
@@ -134,6 +122,25 @@ remnawave_reverse
 ```
 curl -L -o /root/remnanode_analyzer.sh https://raw.githubusercontent.com/OMchik33/Remnawave-scripts/refs/heads/main/remnanode_analyzer.sh && chmod +x /root/remnanode_analyzer.sh && bash /root/remnanode_analyzer.sh
 ```
+
+## AmneziaWG
+
+# deb 13
+
+https://github.com/amnezia-vpn/amneziawg-linux-kernel-module#debian
+
+```
+apt install -y linux-headers-$(uname -r) build-essential dkms
+wget -O install_amneziawg.sh https://raw.githubusercontent.com/bivlked/amneziawg-installer/main/install_amneziawg_en.sh
+chmod +x install_amneziawg.sh
+./install_amneziawg.sh
+
+sudo ufw allow in on awg0 to any
+
+sudo mcedit /etc/amnezia/amneziawg/awg0.conf
+```
+
+Учти, что в процессе сборки модуля ядра скрипт дважды попросит перезагрузить систему — после каждой перезагрузки нужно просто запустить его заново той же командой ./install_amneziawg.sh, и он продолжит с места остановки.
 
 ## проверки VPS
 

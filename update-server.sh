@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add packets
-apt update && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr jq atop lsof ncdu
+apt update && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr jq atop lsof ncdu dnsutils inetutils-traceroute
 ufw allow ssh
 
 #my motd

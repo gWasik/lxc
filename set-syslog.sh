@@ -3,7 +3,7 @@
 # add packets
 sudo apt update
 sudo apt upgrade
-sudo apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop sudo lsof ncdu conntrack dnsutils wireguard
+sudo apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop sudo lsof ncdu conntrack dnsutils wireguard inetutils-traceroute
 sudo apt autoremove -y
 
 #ufw
