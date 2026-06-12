@@ -18,7 +18,7 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 ```
 ash -c "$(curl -fsSL https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"
 
-[ -f ~/.bash_history ] && sed -i -e '/_termius_/d' -e '/builtin printf.*?1049/d' ~/.bash_history; [ -f /etc/openwrt_release ] && [ -z "$(ls -A /var/opkg-lists 2>/dev/null)" ] && ash -c "$(wget -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"; mc
+[ -f ~/.bash_history ] && sed -i -e '/_termius_/d' -e '/builtin printf.*?1049/d' ~/.bash_history; [ -f /etc/openwrt_release ] && [ -z "$(ls -A /var/opkg-lists 2>/dev/null)" ] && ash -c "$(wget -qO- https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"; sudo mc
 ```
 
 ### exec on my VDS/PVE
@@ -42,6 +42,12 @@ sudo bash -c 'USER_NAME="awasik"; USER_PASS="awasik"; if id "$USER_NAME" &>/dev/
 
 hostnamectl set-hostname *node*.wasik.ru
 mcedit /etc/hosts
+
+"wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/config" "-O" "/root/.ssh/config"
+
+[ -s /root/.ssh/authorized_keys ] && [ -n "$(tail -n1 /root/.ssh/authorized_keys | tr -d '\r\n')" ] && echo "" >> /root/.ssh/authorized_keys; wget -qO- "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" >> /root/.ssh/authorized_keys && awk '!seen[$0]++' /root/.ssh/authorized_keys > /root/.ssh/authorized_keys.tmp && mv /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys
+
+chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
 
 sudo sed -i -E 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
 sudo sed -i -E 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
