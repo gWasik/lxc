@@ -2,6 +2,8 @@
 
 # add and update packets
 opkg update && opkg install htop sudo mc iperf3 curl wget tcpdump iftop mtr atop autossh openssh-sftp-server openssh-client ca-bundle
+opkg remove iputils-ping
+ln -sf /bin/busybox /usr/bin/ping
 
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/welcome.sh" "-O" "/etc/welcome.sh"
