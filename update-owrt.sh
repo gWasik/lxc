@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # add and update packets
-opkg update && opkg install htop sudo mc iperf3 curl wget iputils-ping tcpdump iftop mtr atop autossh openssh-sftp-server openssh-client ca-bundle
+opkg update && opkg install htop sudo mc iperf3 curl wget tcpdump iftop mtr atop autossh openssh-sftp-server openssh-client ca-bundle
 
 #my motd
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/update-motd.d/welcome.sh" "-O" "/etc/welcome.sh"
