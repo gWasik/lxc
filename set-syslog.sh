@@ -2,7 +2,7 @@
 
 # add packets
 sudo apt update && sudo apt upgrade && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr jq atop lsof ncdu dnsutils inetutils-traceroute mtr-tiny bc netcat iproute
-sudo apt autoremove -y
+sudo apt update && sudo apt upgrade && sudo apt autoremove -y
 
 #ufw
 sudo ufw logging off
