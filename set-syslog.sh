@@ -1,8 +1,13 @@
 #!/bin/sh
 
 # add packets
-sudo apt update && sudo apt upgrade && apt install -y htop btop net-tools mc ufw iperf3 curl wget sudo iftop mtr jq atop lsof ncdu dnsutils inetutils-traceroute mtr-tiny bc netcat iproute
+sudo apt update && sudo apt upgrade && sudo apt install -y bat htop btop net-tools ufw iperf3 iftop jq atop lsof ncdu bind9-dnsutils inetutils-traceroute mtr-tiny bc netcat-openbsd netcat-traditional curl wget
 sudo apt update && sudo apt upgrade && sudo apt autoremove -y
+
+echo 'alias bat="batcat"' >> ~/.bashrc
+
+sudo systemctl stop exim4
+sudo systemctl disable exim4
 
 #ufw
 sudo ufw logging off

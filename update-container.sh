@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # add packets
-apt update
-apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop lsof ncdu
+sudo apt update && sudo apt upgrade && sudo apt install -y htop btop net-tools sudo iftop iperf3 mtr mc atop lsof ncdu
  
 #add ssh key
 [ -s /root/.ssh/authorized_keys ] && [ -n "$(tail -n1 /root/.ssh/authorized_keys | tr -d '\r\n')" ] && echo "" >> /root/.ssh/authorized_keys; wget -qO- "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/.ssh/authorized_keys" >> /root/.ssh/authorized_keys && awk '!seen[$0]++' /root/.ssh/authorized_keys > /root/.ssh/authorized_keys.tmp && mv /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys
