@@ -9,7 +9,15 @@ chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
 #
 sudo sed -i 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo sed -i 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
-systemctl restart sshd
+if sshd -t; then
+    sudo systemctl restart sshd
+    echo "SSH успешно перезапущен"
+else
+    echo "Ошибка: конфигурация некорректна. Перезапуск отменен."
+    # Можно добавить команду для детального просмотра ошибки:
+    sshd -t
+    exit 1
+fi
 
 #add rsyslog 
 "wget" "https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/etc/rsyslog.d/remote.conf" "-O" "/etc/rsyslog.d/remote.conf"

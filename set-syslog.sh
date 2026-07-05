@@ -37,7 +37,15 @@ sudo timedatectl set-timezone Europe/Moscow
 sudo sed -i -E 's/^#?Port 22/Port 11111/' /etc/ssh/sshd_config
 sudo sed -i -E 's/^#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo sed -i -E 's/^#?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
-sudo systemctl restart ssh
+if sshd -t; then
+    sudo systemctl restart sshd
+    echo "SSH успешно перезапущен."
+else
+    echo "Ошибка: конфигурация некорректна. Перезапуск отменен."
+    # Можно добавить команду для детального просмотра ошибки:
+    sshd -t
+    exit 1
+fi
 
 #resolvconf
 [ -d "/etc/resolvconf" ] || mkdir -p "/etc/resolvconf"
