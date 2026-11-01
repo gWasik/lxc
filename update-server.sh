@@ -5,6 +5,10 @@ sudo apt update && sudo apt upgrade && sudo apt install -y bat htop btop net-too
 sudo apt update && sudo apt upgrade && sudo apt autoremove -y
 
 echo 'alias bat="batcat"' >> ~/.bashrc
+echo "alias tracert='traceroute'" >> ~/.bashrc
+echo "alias ipconfig='ip a'" >> ~/.bashrc
+echo "alias cls='clear'" >> ~/.bashrc
+echo "alias dir='ls -la'" >> ~/.bashrc
 
 ufw allow ssh
 
