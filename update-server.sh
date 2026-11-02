@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # add packets
+apt update && apt upgrade && apt install -y sudo
 sudo apt update && sudo apt upgrade && sudo apt install -y bat htop btop net-tools ufw iperf3 iftop jq atop lsof ncdu bind9-dnsutils inetutils-traceroute mtr-tiny bc netcat-openbsd netcat-traditional curl wget mc
 sudo apt update && sudo apt upgrade && sudo apt autoremove -y
 
