@@ -27,6 +27,8 @@ wget -qO- bench.sh | bash
 Проверка блокировки аудио в Instagram:
 bash <(curl -L -s https://bench.openode.xyz/checker_inst.sh)
 
+https://cheburcheck.ru/check?target=
+
 ### exec on my OpenWRT
 ```
 ash -c "$(curl -fsSL https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"
