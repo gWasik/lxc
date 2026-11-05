@@ -14,6 +14,19 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 
 ## manual
 
+```
+apt update && apt install -y sysstat sysbench
+sysbench cpu --threads=2 --time=60 run & mpstat -P ALL 1 60
+```
+Проверка IP сервера на блокировки зарубежными сервисами:
+bash <(curl -Ls IP.Check.Place) -l en
+Параметры сервера и проверка скорости к российским провайдерам:
+wget -qO- speedtest.artydev.ru | bash
+Параметры сервера и проверка скорости к зарубежным провайдерам:
+wget -qO- bench.sh | bash
+Проверка блокировки аудио в Instagram:
+bash <(curl -L -s https://bench.openode.xyz/checker_inst.sh)
+
 ### exec on my OpenWRT
 ```
 ash -c "$(curl -fsSL https://raw.githubusercontent.com/gWasik/lxc/refs/heads/main/update-owrt.sh)"
