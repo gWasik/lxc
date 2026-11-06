@@ -18,14 +18,16 @@ https://patorjk.com/software/taag/#p=display&f=Graffiti&t=PVE1
 apt update && apt install -y sysstat sysbench
 sysbench cpu --threads=2 --time=60 run & mpstat -P ALL 1 60
 ```
-Проверка IP сервера на блокировки зарубежными сервисами:
-bash <(curl -Ls IP.Check.Place) -l en
+Проверка IP сервера на блокировки зарубежными сервисами
+    bash <(curl -Ls IP.Check.Place) -l en
 Параметры сервера и проверка скорости к российским провайдерам:
-wget -qO- speedtest.artydev.ru | bash
+    wget -qO- speedtest.artydev.ru | bash
 Параметры сервера и проверка скорости к зарубежным провайдерам:
-wget -qO- bench.sh | bash
+    wget -qO- bench.sh | bash
 Проверка блокировки аудио в Instagram:
-bash <(curl -L -s https://bench.openode.xyz/checker_inst.sh)
+    bash <(curl -L -s https://bench.openode.xyz/checker_inst.sh)
+проверка на блокировки
+    wget -qO- https://raw.githubusercontent.com/Nokola-Tesla/censorcheck/main/censorcheck.sh | bash
 
 https://cheburcheck.ru/check?target=
 
